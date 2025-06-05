@@ -1,8 +1,4 @@
 {
-  "_name": "Inksky",
-  "_author": "Sheikh Reed",
-  "_description": "A clean and modern CustomTkinter theme with a refreshing blue and soft white palette. Designed for readability, focus, and visual harmony, this theme provides a sleek, professional appearance for light-mode applications while maintaining excellent contrast and accessibility. Ideal for dashboards, productivity tools, and minimalist interfaces.",
-
   "CTk": {
     "fg_color": ["#e7ecfb", "#1f1f1f"]
   },

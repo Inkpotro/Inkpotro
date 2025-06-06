@@ -30,7 +30,7 @@ set_default_color_theme(str(theme_path))
 class Window:
     def __init__(self, title="Inkpotro", geometry="600x300"):
         # Create the main CustomTkinter window
-        self.window = CTk()
+        self.window = CTk(className="Inkpotro")
 
         # Set the window title
         self.window.title(title)
@@ -43,7 +43,7 @@ class Window:
 
         # Set the window icon
         self.window.iconphoto(True, get_icon)
-        
+
     def show_window(self):
         # Start the GUI event loop
         self.window.mainloop()

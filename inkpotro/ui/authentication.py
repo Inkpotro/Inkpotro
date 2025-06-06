@@ -20,8 +20,13 @@ class GetToken:
         token_page = Window("GitHub Authentication - Inkpotro", "600x200")
 
         # Create a password-style entry for GitHub token input
-        github_token = CTkEntry(token_page.window, show="*", placeholder_text="Github Token", width=400)
-
+        github_token = CTkEntry(
+            token_page.window,
+            show="*",
+            placeholder_text="Example: ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            width=400
+        )
+        
         # Add spacing around the entry
         github_token.pack(padx=10, pady=50)
 

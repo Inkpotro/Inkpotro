@@ -1,0 +1,9 @@
+[project]
+name = "inkpotro"
+version = "0.1.0"
+description = "Write Freely, Publish Instantly."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "customtkinter>=5.2.2",
+]

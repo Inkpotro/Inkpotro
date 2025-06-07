@@ -1,5 +1,10 @@
-# Python-generated file
+# Python-generated files
 __pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
 
 # Ignore sensitive GitHub token file
 token.json

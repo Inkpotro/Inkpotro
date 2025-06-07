@@ -1,5 +1,8 @@
 # Python-generated file
 __pycache__/
 
+# Ignore sensitive GitHub token file
+token.json
+
 # Virtual environment
 .venv

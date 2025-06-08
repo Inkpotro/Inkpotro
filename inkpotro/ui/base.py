@@ -1,3 +1,9 @@
+# Access system-level functions and arguments
+import sys
+
+# Handle filesystem paths
+from pathlib import Path
+
 # Import CustomTkinter base class and appearance functions
 from customtkinter import (
     CTk,
@@ -5,20 +11,22 @@ from customtkinter import (
     set_default_color_theme
 )
 
-# For accessing package resource files
-from importlib.resources import files
-
-# Importing local resource packages (theme & icon)
-from inkpotro import theme, icon
-
 # Standard Tkinter image class for window icons
 from tkinter import PhotoImage
 
+# Helper to resolve resource paths in dev and bundled mode
+def resource_path(relative_path):
+    if getattr(sys, 'frozen', False):
+        base_path = Path(sys._MEIPASS)
+    else:
+        base_path = Path(__file__).resolve().parent.parent
+    return base_path / relative_path
+
 # Get the full path to the custom theme JSON file
-theme_path = files(theme).joinpath("inksky.json")
+theme_path = resource_path("theme/inksky.json")
 
 # Get the full path to the icon image file
-icon_path = files(icon).joinpath("icon.png")
+icon_path = resource_path("icon/icon.png")
 
 # Set global appearance mode: "light", "dark", or "system"
 set_appearance_mode("light")

@@ -1,8 +1,8 @@
-# Used to access package resources (e.g., file paths)
-from importlib.resources import files
+# Access system-level functions and arguments
+import sys
 
-# Importing the resource directory from the 'inkpotro' package
-from inkpotro import config
+# Handle filesystem paths
+from pathlib import Path
 
 # Function to check if a file exists
 from os.path import exists
@@ -10,8 +10,21 @@ from os.path import exists
 # Functions to read/write JSON data
 from json import load, dump
 
+# Get a path for storing the token, writable in all OS
+def get_token_path():
+    if getattr(sys, 'frozen', False):
+        # PyInstaller bundled mode: use user home directory
+        config_dir = Path.home() / ".inkpotro" / "config"
+    else:
+        # Development mode: use project-relative config dir
+        config_dir = Path(__file__).resolve().parent.parent / "config"
+    
+    # Create dir if doesn't exist
+    config_dir.mkdir(parents=True, exist_ok=True)
+    return config_dir / "token.json"
+
 # Get the path to the token.json file inside the config resource directory
-token_path = files(config).joinpath("token.json")
+token_path = get_token_path()
 
 # Class responsible for managing the GitHub token
 class Manager:

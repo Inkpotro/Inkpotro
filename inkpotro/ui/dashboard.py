@@ -19,8 +19,11 @@ from customtkinter import (
 from inkpotro.misc import add_entry
 
 # Import GitHub API and auth manager
-from github import Github
+from github import Github, BadCredentialsException
 from inkpotro.auth import Manager
+
+# Import custom message box for displaying error messages
+from CTkMessagebox import CTkMessagebox
 
 # Import datetime for default post date generation
 from datetime import datetime
@@ -70,12 +73,34 @@ class Dashboard:
         # Add input for the post title
         self.title_entry = add_entry(self.metadata_frame, "Title")
 
-        # If GitHub token is found, pre-fill author name
+        # If a GitHub token is found
         if token:
-            login = Github(token)
-            user = login.get_user()
-            user_name = user.name
-            self.author_entry = add_entry(self.metadata_frame, "Author Name", user_name)
+            try:
+                # Attempt to log in to GitHub using the token
+                login = Github(token)
+
+                # Retrieve the user object associated with the token
+                user = login.get_user()
+
+                # Get the user's name from the GitHub profile
+                user_name = user.name
+
+                # Add an input field for the author's name, pre-filled with GitHub username
+                self.author_entry = add_entry(self.metadata_frame, "Author Name", user_name)
+            except BadCredentialsException:
+                # Show an error message if the GitHub token is invalid
+                message_box = CTkMessagebox(
+                    title = "Error",
+                    message = "The GitHub token you are using is not valid. Please use a correct GitHub token.",
+                    icon = "cancel",
+                    option_1="Close"
+                )
+                # If the user clicks "Close", destroy the window and stop further execution
+                if message_box.get() == "Close":
+                    dashboard.window.destroy()
+
+                    # Exit the constructor to avoid further UI operations
+                    return
         
         # Add input for post date with default to current time
         self.date_entry = add_entry(

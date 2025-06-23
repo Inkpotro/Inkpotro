@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>610</width>
+    <height>266</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>GitHub Authentication - Inkpotro</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../icon/icon.png</normaloff>../icon/icon.png</iconset>
+  </property>
+  <widget class="QLineEdit" name="github_token_input">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>92</y>
+     <width>461</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::FocusPolicy::ClickFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
+    border: 2px solid #3c3c3c;
+    border-radius: 8px;
+    padding: 6px 10px;
+}
+
+QLineEdit:focus {
+    border: 2px solid #428cfe;
+}</string>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::EchoMode::Password</enum>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignmentFlag::AlignCenter</set>
+   </property>
+   <property name="placeholderText">
+    <string>ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXX</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="setup_github_token">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>160</y>
+     <width>101</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    border: 2px solid #3c3c3c;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+QPushButton:pressed {
+    background-color: #428cfe;
+	color: #e7ecfb;
+	padding-left: 10px;
+    padding-top: 9px;
+}</string>
+   </property>
+   <property name="text">
+    <string>Setup</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

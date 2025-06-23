@@ -5,6 +5,24 @@ from PyQt6.QtGui import QIcon
 # Import custom MarkdownService for saving posts
 from inkpotro.services import MarkdownService
 
+# Import Path from pathlib to handle filesystem paths
+from pathlib import Path
+
+# Access system-level functions and arguments
+import sys
+
+# Helper to resolve resource paths in dev and bundled mode
+def resource_path(relative_path):
+    # Check if the application is running in a bundled (frozen) environment like PyInstaller
+    if getattr(sys, 'frozen', False):
+        # If frozen, use the temporary folder created by PyInstaller
+        icon_path = Path(sys._MEIPASS)
+    else:
+        # If not frozen, use the directory two levels up from the current file
+        icon_path = Path(__file__).resolve().parent.parent
+    # Return the full path to the resource
+    return icon_path / relative_path
+
 # Controller class for handling blog post creation and preview
 class PostController:
     # Initialize the controller with a reference to the UI
@@ -50,7 +68,8 @@ class PostController:
             dialog = QFileDialog(self.ui, "Select Folder to Save Post")
             dialog.setOption(QFileDialog.Option.DontUseNativeDialog, True)
             dialog.setFileMode(QFileDialog.FileMode.Directory)
-            dialog.setWindowIcon(QIcon("inkpotro/icon/icon.png"))
+            icon_path = resource_path("icon/icon.png")
+            dialog.setWindowIcon(QIcon(str(icon_path)))
 
             # If the user selects a folder
             if dialog.exec():

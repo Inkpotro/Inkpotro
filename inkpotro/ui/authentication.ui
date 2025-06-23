@@ -10,6 +10,24 @@
     <height>266</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>610</width>
+    <height>266</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>610</width>
+    <height>266</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>GitHub Authentication - Inkpotro</string>
   </property>
@@ -40,7 +58,6 @@
     border-radius: 8px;
     padding: 6px 10px;
 }
-
 QLineEdit:focus {
     border: 2px solid #428cfe;
 }</string>
@@ -75,11 +92,10 @@ QLineEdit:focus {
     padding: 6px 10px;
     border-radius: 6px;
 }
-
 QPushButton:pressed {
     background-color: #428cfe;
-	color: #e7ecfb;
-	padding-left: 10px;
+    color: #e7ecfb;
+    padding-left: 10px;
     padding-top: 9px;
 }</string>
    </property>

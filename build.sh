@@ -10,9 +10,10 @@ else
 fi
 
 # Use Python to resolve absolute paths
-CTK_PATH=$(uv run $PYTHON_EXEC -c "import customtkinter, os; print(os.path.dirname(customtkinter.__file__))")
-THEME_FILE=$(uv run $PYTHON_EXEC -c "import os; print(os.path.abspath('inkpotro/theme/inksky.json'))")
 ICON_FILE=$(uv run $PYTHON_EXEC -c "import os; print(os.path.abspath('inkpotro/icon/icon.png'))")
+AUTH_UI=$(uv run $PYTHON_EXEC -c "import os; print(os.path.abspath('inkpotro/ui/authentication.ui'))")
+DASH_UI=$(uv run $PYTHON_EXEC -c "import os; print(os.path.abspath('inkpotro/ui/dashboard.ui'))")
+FONT_FILE=$(uv run $PYTHON_EXEC -c "import os; print(os.path.abspath('inkpotro/font/SolaimanLipi.ttf'))")
 MAIN_FILE=$(uv run $PYTHON_EXEC -c "import os; print(os.path.abspath('inkpotro/__main__.py'))")
 
 # Run PyInstaller to build the executable
@@ -21,9 +22,9 @@ uv run pyinstaller \
   --onefile \
   --windowed \
   --icon="$ICON_FILE" \
-  --add-data "$THEME_FILE${SEP}theme" \
+  --add-data "$AUTH_UI${SEP}ui" \
+  --add-data "$DASH_UI${SEP}ui" \
   --add-data "$ICON_FILE${SEP}icon" \
-  --add-data "$CTK_PATH${SEP}customtkinter" \
-  --hidden-import PIL._tkinter_finder \
+  --add-data "$FONT_FILE${SEP}font" \
   -n Inkpotro \
   "$MAIN_FILE"

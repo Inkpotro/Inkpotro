@@ -6,6 +6,7 @@ import sys
 
 # Import necessary PyQt6 widgets and classes
 from PyQt6.QtWidgets import QWidget, QMessageBox, QApplication
+from PyQt6.QtGui import QPixmap
 
 # Import uic for loading .ui files
 from PyQt6 import uic
@@ -63,8 +64,12 @@ class AuthenticationWindow(QWidget):
             # Set the message text
             message_box.setText("GitHub Token saved successfully!")
 
-            # Set the icon to an information symbol
-            message_box.setIcon(QMessageBox.Icon.Information)
+            # Get the full path to the custom icon
+            icon_path = resource_path("icons/success.png")
+            pixmap = QPixmap(str(icon_path))
+
+            # Set the icon
+            message_box.setIconPixmap(pixmap)
 
             # Set a single OK button in the message box
             message_box.setStandardButtons(QMessageBox.StandardButton.Ok)
@@ -77,4 +82,21 @@ class AuthenticationWindow(QWidget):
                 QApplication.quit()
         else:
             # If no token is provided, show an information message box
-            QMessageBox.information(self, "Missing GitHub Token", "Please enter your GitHub token to proceed.")
+            # Create a message box to notify the user
+            message_box = QMessageBox(self)
+
+            # Set the title of the message box
+            message_box.setWindowTitle("Missing GitHub Token")
+
+            # Set the message text
+            message_box.setText("Please enter your GitHub token to proceed.")
+
+            # Get the full path to the custom icon
+            icon_path = resource_path("icons/information.png")
+            pixmap = QPixmap(str(icon_path))
+
+            # Set the icon
+            message_box.setIconPixmap(pixmap)
+
+            # Show the message box
+            response = message_box.exec()

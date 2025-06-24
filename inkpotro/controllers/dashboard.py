@@ -6,6 +6,7 @@ import sys
 
 # Import necessary PyQt6 widgets
 from PyQt6.QtWidgets import QWidget, QMessageBox
+from PyQt6.QtGui import QPixmap
 
 # Import uic for loading .ui files
 from PyQt6 import uic
@@ -95,24 +96,28 @@ class DashboardWindow(QWidget):
     
     # Method to show a critical error dialog when the GitHub token is invalid
     def show_invalid_token_dialog(self):
-        # Create a QMessageBox attached to the current widget
-        msg = QMessageBox(self)
-        
-        # Set the title of the dialog window
-        msg.setWindowTitle("Invalid Token")
-        
-        # Set the message text shown in the dialog
-        msg.setText("Your GitHub token is invalid. Please login again.")
-        
-        # Set the icon to indicate a critical error (red X)
-        msg.setIcon(QMessageBox.Icon.Critical)
-        
+        # Create a message box to notify the user
+        message_box = QMessageBox(self)
+
+        # Set the title of the message box
+        message_box.setWindowTitle("Invalid Token")
+
+        # Set the message text
+        message_box.setText("Your GitHub token is invalid. Please login again.")
+
+        # Get the full path to the custom icon
+        icon_path = resource_path("icons/error.png")
+        pixmap = QPixmap(str(icon_path))
+
+        # Set the icon
+        message_box.setIconPixmap(pixmap)
+
         # Set a single OK button in the message box
-        msg.setStandardButtons(QMessageBox.StandardButton.Ok)
-        
-        # Display the message box and wait for the user's response
-        response = msg.exec()
-        
+        message_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+
+        # Show the message box
+        response = message_box.exec()
+    
         # If the user clicks OK
         if response == QMessageBox.StandardButton.Ok:
             # Import and open the AuthenticationWindow to allow re-login

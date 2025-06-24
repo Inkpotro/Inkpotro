@@ -33,7 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../icon/icon.png</normaloff>../icon/icon.png</iconset>
+    <normaloff>../icons/inkpotro.png</normaloff>../icons/inkpotro.png</iconset>
   </property>
   <widget class="QLineEdit" name="github_token_input">
    <property name="geometry">

@@ -68,7 +68,7 @@ class PostController:
             dialog = QFileDialog(self.ui, "Select Folder to Save Post")
             dialog.setOption(QFileDialog.Option.DontUseNativeDialog, True)
             dialog.setFileMode(QFileDialog.FileMode.Directory)
-            icon_path = resource_path("icon/icon.png")
+            icon_path = resource_path("icons/inkpotro.png")
             dialog.setWindowIcon(QIcon(str(icon_path)))
 
             # If the user selects a folder

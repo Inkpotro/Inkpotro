@@ -5,14 +5,20 @@ from pathlib import Path
 import sys
 
 # Import necessary PyQt6 widgets and classes
-from PyQt6.QtWidgets import QWidget, QMessageBox, QApplication
+from PyQt6.QtWidgets import QWidget, QMessageBox
 from PyQt6.QtGui import QPixmap
 
 # Import uic for loading .ui files
 from PyQt6 import uic
 
-# Import the Manager class for saving GitHub token
+# Import the Manager class
 from inkpotro.auth import Manager
+
+# Import GitHub API
+from github import Github, BadCredentialsException
+
+# Import the dashboard window UI class
+from inkpotro.controllers.dashboard import DashboardWindow
 
 # Function to get the path of resources (UI files), works in both development and bundled (frozen) mode
 def resource_path(relative_path):
@@ -77,9 +83,22 @@ class AuthenticationWindow(QWidget):
             # Show the message box and store the user's response
             response = message_box.exec()
 
-            # If the user clicks OK, quit the application
+            # If the user clicks OK
             if response == QMessageBox.StandardButton.Ok:
-                QApplication.quit()
+                try:
+                    # Attempt to log in to GitHub using the token
+                    login = Github(token)
+
+                    # Retrieve the user object associated with the token
+                    user = login.get_user()
+
+                    # Get the user's name from the GitHub profile
+                    user_name = user.name
+
+                    # Open Dashboard
+                    self.open_dashboard(user_name)
+                except BadCredentialsException:
+                    self.show_invalid_token_dialog()
         else:
             # If no token is provided, show an information message box
             # Create a message box to notify the user
@@ -100,3 +119,41 @@ class AuthenticationWindow(QWidget):
 
             # Show the message box
             response = message_box.exec()
+    
+    # Open dashboard
+    def open_dashboard(self, author_name):
+        # Create an instance of the DashboardWindow class
+        self.dashboard = DashboardWindow()
+
+        # Set the GitHub author's name in the author input field
+        self.dashboard.author_input.setText(author_name)
+
+        # Show the dashboard window to the user
+        self.dashboard.show()
+
+        # Close the current authentication window
+        self.close()
+
+    # Method to show a critical error dialog when the GitHub token is invalid
+    def show_invalid_token_dialog(self):
+        # Create a message box to notify the user
+        message_box = QMessageBox(self)
+
+        # Set the title of the message box
+        message_box.setWindowTitle("Invalid Token")
+
+        # Set the message text
+        message_box.setText("Your GitHub token is invalid. Please login again.")
+
+        # Get the full path to the custom icon
+        icon_path = resource_path("icons/error.png")
+        pixmap = QPixmap(str(icon_path))
+
+        # Set the icon
+        message_box.setIconPixmap(pixmap)
+
+        # Set a single OK button in the message box
+        message_box.setStandardButtons(QMessageBox.StandardButton.Ok)
+
+        # Show the message box
+        response = message_box.exec()

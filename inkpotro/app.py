@@ -10,6 +10,13 @@ from sys import argv, exit
 # Import the authentication and dashboard window UI classes
 from inkpotro.controllers import AuthenticationWindow, DashboardWindow
 
+# Try to initialize fontconfig to avoid font-related warnings
+try:
+    import ctypes
+    ctypes.CDLL("libfontconfig.so.1").FcInit()
+except Exception as e:
+    print(f"Fontconfig initialization skipped: {e}")
+
 # Function to start and run the application
 def run_app():
     # Create the Qt application

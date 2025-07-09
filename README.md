@@ -5,7 +5,8 @@ Inkpotro is a lightweight desktop application for bloggers and developers who us
 - Clean and structured post editor with YAML frontmatter
 - Automatically fills in your GitHub name as author
 - Organizes generated posts in standard **Hugo-compatible** format
-- Powered by **Inksky**: our elegant, custom-built UI theme
+- **Live Markdown Preview** so you can see exactly how your post will look while writing
+- Adapts to your system theme preference with automatic light or dark mode
 - Fast, distraction-free experience, no browser required
 
 ## GitHub Integration
